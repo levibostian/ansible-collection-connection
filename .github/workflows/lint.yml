@@ -1,0 +1,32 @@
+name: Lint
+# only run on PRs and when push a commit on a branch that we don't deploy on. 
+on: 
+  push:
+    branches-ignore: # we deploy on these branches. No need to test on them. 
+      - 'master'
+      - 'beta'
+    tags-ignore: # Don't run tests on tags as tags are made off of master branch. 
+      - '*'
+  pull_request: # Run on all PRs. 
+    branches:
+      - '*'
+
+jobs:
+  ansible-lint:
+    name: Ansible lint 
+    runs-on: ubuntu-latest
+    # skip if '[skip ci]' exists in commit message 
+    if: ${{ !contains(format('{0} {1}', github.event.head_commit.message, github.event.pull_request.title), '[skip ci]') }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Pip install 
+        uses: BSFishy/pip-action@v1
+        with:
+          packages: | 
+            ansible-lint
+      - name: Ansible lint 
+        run: ansible-lint

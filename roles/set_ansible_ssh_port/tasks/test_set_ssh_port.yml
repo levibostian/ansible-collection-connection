@@ -1,9 +1,10 @@
 - name: Test SSH connection
-  local_action: wait_for port={{ item }} timeout={{ssh_connect_timeout}} host={{ inventory_hostname }}
+  command: wait_for port={{ item }} timeout={{ ssh_connect_timeout }} host={{ inventory_hostname }}
+  delegate_to: localhost
   register: ssh_test
   ignore_errors: true # ignore errors so we can analyze failures later on
-  when: did_set_ansible_ssh_port == false
+  when: not did_set_ansible_ssh_port
 
 - name: Set ansible_ssh_port if successful test
   set_fact: ansible_ssh_port={{ item }} did_set_ansible_ssh_port=true
-  when: ssh_test.failed is defined and ssh_test.failed == false and ssh_test.port is defined 
+  when: ssh_test.failed is defined and not ssh_test.failed and ssh_test.port is defined
