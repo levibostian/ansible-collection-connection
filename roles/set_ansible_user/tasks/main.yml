@@ -1,0 +1,13 @@
+- name: Set default variables
+  set_fact: did_set_ansible_user=false
+
+- name: Test SSH connection 
+  include_tasks: test_set_ssh_user.yml
+  loop: '{{ssh_users_test}}'
+
+- name: Fail if no SSH connection attempt successful
+  when: ssh_connect_fail_if_no_connect == true 
+  assert:
+    that: did_set_ansible_user == true
+    fail_msg: "Node not able to connect with any of the provided SSH usernames."
+    success_msg: 'Node connection successful with username: {{ansible_user | default("root")}}'

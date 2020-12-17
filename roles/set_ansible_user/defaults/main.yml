@@ -1,0 +1,6 @@
+ssh_connect_timeout: 5
+ssh_connect_fail_if_no_connect: true
+ssh_strict_host_checking: "no" # or, "yes"
+ssh_users_test:
+  - "root"
+# ansible_ssh_port: 22 # This is a variable used by the role that you can set. Or, use default of 22

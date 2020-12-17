@@ -2,7 +2,7 @@
 - name: Set default variables
   set_fact: did_set_ansible_ssh_port=false
 
-- name: Test SSH connection and set SSH port if success
+- name: Test SSH connection 
   include_tasks: test_set_ssh_port.yml
   loop: '{{ssh_ports_test}}'
 

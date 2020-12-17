@@ -6,5 +6,4 @@
 
 - name: Set ansible_ssh_port if successful test
   set_fact: ansible_ssh_port={{ item }} did_set_ansible_ssh_port=true
-  when: ssh_test.failed == false and ssh_test.port is defined 
-  register: ssh_port_set
+  when: ssh_test.failed is defined and ssh_test.failed == false and ssh_test.port is defined 

@@ -1,0 +1,9 @@
+- name: Test SSH connection 
+  local_action: shell ssh -p {{ansible_ssh_port | default(22)}} -o ConnectTimeout={{ssh_connect_timeout}} -o "StrictHostKeyChecking {{ssh_strict_host_checking}}" {{ item }}@{{ inventory_hostname }} "echo success"
+  ignore_errors: yes # ignore errors so we can analyze failures later on
+  when: did_set_ansible_user == false
+  register: ssh_test
+
+- name: Set ansible_user if successful test
+  set_fact: ansible_user={{ item }} did_set_ansible_user=true
+  when: ssh_test.stdout is defined and ssh_test.stdout.find("success") != -1
