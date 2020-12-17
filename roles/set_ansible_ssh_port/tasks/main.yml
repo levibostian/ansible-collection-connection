@@ -1,0 +1,14 @@
+# https://serverfault.com/a/546897/327191
+- name: Set default variables
+  set_fact: did_set_ansible_ssh_port=false
+
+- name: Test SSH connection and set SSH port if success
+  include_tasks: test_set_ssh_port.yml
+  loop: '{{ssh_ports_test}}'
+
+- name: Fail if either SSH port connection attempt failed 
+  when: ssh_connect_fail_if_no_connect == true 
+  assert:
+    that: did_set_ansible_ssh_port == true
+    fail_msg: "Node not able to connect with any of the provided SSH ports."
+    success_msg: "Node connection successful at port: {{ansible_ssh_port | default(22)}}"

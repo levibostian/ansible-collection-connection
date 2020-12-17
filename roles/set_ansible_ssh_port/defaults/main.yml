@@ -1,0 +1,4 @@
+ssh_connect_timeout: 5
+ssh_connect_fail_if_no_connect: true
+ssh_ports_test:
+  - 22
