@@ -8,8 +8,8 @@ Ansible collection for **the connection between the nodes**. Not sure what SSH p
 
 | Name | Description | Learn more |
 | -------------- | ---- | -----| 
-| `set_ansible_ssh_port` | Provide a list of SSH ports to test and role will set `ansible_ssh_port` once a SSH port is found to connect successful. If none of the provided SSH ports connect successfully, that node will fail. | [Docs](docs/set_ansible_ssh_port.md) | 
-| `set_ansible_user` | Provide a list of SSH usernames to test and role will set `ansible_user` once a username is found to connect successful. If none of the provided SSH usernames connect successfully, that node will fail. | [Docs](docs/set_ansible_user.md) | 
+| `set_ansible_ssh_port` | Provide a list of SSH ports to test and role will set `ansible_ssh_port` once a SSH port is found to connect successful. If none of the provided SSH ports connect successfully, that node will fail. | [Docs](roles/set_ansible_ssh_port/README.md) | 
+| `set_ansible_user` | Provide a list of SSH usernames to test and role will set `ansible_user` once a username is found to connect successful. If none of the provided SSH usernames connect successfully, that node will fail. | [Docs](roles/set_ansible_user/README.md) | 
 
 # Tests
 
