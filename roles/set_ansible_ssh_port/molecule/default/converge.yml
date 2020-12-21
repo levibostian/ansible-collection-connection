@@ -1,0 +1,11 @@
+- name: converge
+  hosts: all
+  gather_facts: no 
+  vars: 
+    ssh_connect_timeout: 3
+    inventory_hostname: localhost # if we do not put this, the role will try to run against the docker container name. 
+    ssh_ports_test:
+      - 22
+      - 2222
+  roles:
+    - role: set_ansible_ssh_port

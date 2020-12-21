@@ -1,6 +1,10 @@
 - name: Test SSH connection
-  command: wait_for port={{ item }} timeout={{ ssh_connect_timeout }} host={{ inventory_hostname }}
+  wait_for:
+    port: '{{ item }}'
+    timeout: '{{ ssh_connect_timeout }}'
+    host: '{{ inventory_hostname }}'
   delegate_to: localhost
+  # local_action: wait_for port={{ item }} timeout={{ ssh_connect_timeout }} host=c
   register: ssh_test
   ignore_errors: true # ignore errors so we can analyze failures later on
   when: not did_set_ansible_ssh_port

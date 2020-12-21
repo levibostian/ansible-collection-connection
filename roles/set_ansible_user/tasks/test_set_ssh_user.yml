@@ -1,5 +1,5 @@
 - name: Test SSH connection
-  command: shell ssh -p {{ ansible_ssh_port | default(22) }} -o ConnectTimeout={{ ssh_connect_timeout }} -o "StrictHostKeyChecking {{ ssh_strict_host_checking }}" {{ item }}@{{ inventory_hostname }} "echo success" # noqa 204
+  shell: ssh -p {{ ansible_ssh_port | default(22) }} -o ConnectTimeout={{ ssh_connect_timeout }} -o "StrictHostKeyChecking {{ ssh_strict_host_checking }}" {{ item }}@{{ inventory_hostname }} "echo success" # noqa 204
   delegate_to: localhost
   ignore_errors: yes # ignore errors so we can analyze failures later on
   when: not did_set_ansible_user

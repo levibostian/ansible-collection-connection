@@ -1,0 +1,23 @@
+- name: converge
+  hosts: all
+  gather_facts: no 
+  vars: 
+    ssh_connect_timeout: 3
+    inventory_hostname: localhost # do a ssh connection to localhost because docker container is port binding to localhost
+    ssh_ports_test:
+      - 22
+      - 2222
+  roles:
+    - role: set_ansible_ssh_port
+
+- name: verify 
+  hosts: all 
+  become: yes 
+
+  tasks: 
+    - name: Check set SSH port 
+      assert: 
+        that: ansible_ssh_port == 2222
+    - name: Check set output variables 
+      assert: 
+        that: did_set_ansible_ssh_port
